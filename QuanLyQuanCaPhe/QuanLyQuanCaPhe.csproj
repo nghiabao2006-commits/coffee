@@ -52,6 +52,7 @@
     <Compile Include="DTO\NhanVienDTO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />
     <Compile Include="DAL\BanDAL.cs" />
+    <Compile Include="DAL\BanHangDAL.cs" />
     <Compile Include="DAL\CaiDatDAL.cs" />
     <Compile Include="DAL\DatabaseHelper.cs" />
     <Compile Include="DAL\DatabaseInitializer.cs" />

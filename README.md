@@ -67,8 +67,9 @@ GUI (Forms)  ──►  BUS (Business Logic)  ──►  DAL (Data Access)  ─�
 │   │   ├── NhanVienDAL.cs
 │   │   ├── KhuVucDAL.cs
 │   │   ├── BanDAL.cs
+│   │   ├── BanHangDAL.cs          # Mở hóa đơn, gọi món, thanh toán
 │   │   ├── ThucDonDAL.cs
-│   │   ├── HoaDonDAL.cs
+│   │   ├── HoaDonDAL.cs           # Tra cứu, chi tiết và hủy hóa đơn
 │   │   ├── ThongKeDAL.cs
 │   │   └── CaiDatDAL.cs
 │   ├── BUS/                       # Business Logic Layer
@@ -205,7 +206,7 @@ Danh sách bàn, món, nhân viên... được giữ nguyên qua các lần ch�
 
 ### 8.2. Gọi món và thanh toán bằng transaction
 
-- `GetOrCreateInvoice` dùng khóa `UPDLOCK, HOLDLOCK` để tránh hai máy tạo trùng hóa đơn cho cùng một bàn.
+- `BanHangDAL.GetOrCreateInvoice` dùng khóa `UPDLOCK, HOLDLOCK` để tránh hai máy tạo trùng hóa đơn cho cùng một bàn.
 - Thêm món: nếu món đã có trong hóa đơn thì tăng số lượng, ngược lại thêm dòng mới.
 - Thanh toán: mở `SqlTransaction`, cập nhật hóa đơn (trạng thái, giảm giá, phương thức, ngày thanh toán), sau đó cập nhật bàn về "Trống"; nếu lỗi thì rollback toàn bộ.
 
@@ -300,3 +301,45 @@ Kết quả được ghi vào `selftest.log` cạnh file chạy, dòng cuối l�
 ## 12. Kết luận
 
 Bài tập đã xây dựng hoàn chỉnh một phần mềm quản lý quán cà phê đáp ứng các nghiệp vụ cơ bản của quán, được tổ chức theo chuẩn 3 lớp và sử dụng ADO.NET kết nối SQL Server. Qua quá trình thực hiện, em đã rèn luyện được kỹ năng phân tích yêu cầu, thiết kế cơ sở dữ liệu, lập trình giao diện WinForms, xử lý transaction và tổ chức mã nguồn khoa học. Phần mềm có thể chạy ngay sau khi tải source và đã được kiểm thử các luồng nghiệp vụ chính.
+
+## 13. Phụ lục: Phân công công việc nhóm 3 người
+
+Mỗi thành viên đảm nhận tối thiểu 3 màn hình chức năng (UserControl được tính là một màn hình WinForms). Cách chia dưới đây cắt theo cụm nghiệp vụ để mỗi người sở hữu trọn gói GUI → BUS → DAL của phần mình.
+
+### 13.1. Bảng phân công
+
+| Thành viên | Màn hình phụ trách | BUS/DAL phụ trách |
+|---|---|---|
+| **Người 1** – Nền tảng, đăng nhập, khung chương trình | `frmDangNhap`, `frmKetNoiCSDL`, `frmMain` | `TaiKhoanBUS`, `MatKhau`, `TaiKhoanDAL`; chủ trì `DatabaseHelper`, `DatabaseInitializer`, `ScriptDB.sql`, `Program.cs`, `App.config`, `.sln`, `.csproj` |
+| **Người 2** – Bán hàng, bàn, thực đơn | `ucBanHang`, `ucQuanLyBan`, `ucThucDon` | `BanHangBUS`, `BanBUS`, `KhuVucBUS`, `ThucDonBUS`, `BanHangDAL`, `BanDAL`, `KhuVucDAL`, `ThucDonDAL` |
+| **Người 3** – Trang chủ, nhân viên, hóa đơn, thống kê, in | `ucTrangChu`, `ucNhanVien`, `ucHoaDon`, `ucThongKe`, `InvoicePrinter` | `NhanVienBUS`, `HoaDonBUS`, `ThongKeBUS`, `CaiDatBUS`, `NhanVienDAL`, `HoaDonDAL`, `ThongKeDAL`, `CaiDatDAL` |
+
+### 13.2. File dùng chung để gắn kết 3 phần
+
+- `Database/ScriptDB.sql`: nguồn sự thật duy nhất về bảng và dữ liệu mẫu; chỉ sửa khi cả nhóm thống nhất.
+- 5 lớp DTO (`TaiKhoanDTO`, `NhanVienDTO`, `HoaDonDTO`, `ChiTietHoaDonDTO`, `CaiDatDTO`): hợp đồng dữ liệu, không đổi tên thuộc tính.
+- `DAL/DatabaseHelper.cs`, `DAL/DatabaseInitializer.cs`: kết nối và tự khởi tạo cơ sở dữ liệu.
+- `GUI/Theme.cs`, `GUI/Utils.cs`, `GUI/Session.cs` và các control `UiGrid`, `BufferedPanel`, `BarChart`.
+- `frmMain.cs` (Người 1): gọi 7 màn hình theo tên class cố định.
+- `InvoicePrinter.cs` (Người 3): Người 2 dùng lại để in tạm tính.
+- `Program.cs --selftest`, `.sln`, `.csproj`, `App.config`: kiểm thử và cấu hình chung.
+
+### 13.3. Quy ước dữ liệu chung
+
+| Bảng | Người ghi | Người đọc | Cột trọng yếu |
+|---|---|---|---|
+| `VaiTro`, `NhanVien` | Người 3 | Người 1 (đăng nhập) | `TenDangNhap`, `MatKhau`, `MaVaiTro`, `TrangThai` |
+| `KhuVuc`, `Ban` | Người 2 | Người 3 (thống kê, hủy hóa đơn) | `MaBan`, `MaKhuVuc`, `TrangThai` |
+| `LoaiMon`, `Mon` | Người 2 | Người 2 | `MaMon`, `MaLoai`, `TrangThai` |
+| `HoaDon`, `ChiTietHoaDon` | Người 2 (tạo/thanh toán) | Người 3 (xem/hủy/thống kê) | `MaHD`, `MaBan`, `MaNV`, `TongTien`, `GiamGia`, `ThanhTien`, `PhuongThucThanhToan`, `TrangThai` |
+| `CaiDat` | Dữ liệu mẫu | Người 3 (in hóa đơn) | `Khoa`, `GiaTri` |
+
+Chuỗi trạng thái dùng thống nhất: `Trống` / `Đang sử dụng`; `Chưa thanh toán` / `Đã thanh toán` / `Đã hủy`; `Tiền mặt` / `Chuyển khoản`; `Đang làm` / `Nghỉ việc`.
+
+### 13.4. Quy trình ghép bài
+
+1. Chốt trước tên class màn hình, chữ ký hàm BUS, chuỗi trạng thái và script CSDL.
+2. Người 1 hoàn thiện hạ tầng, đăng nhập và khung chính (dùng màn hình rỗng đúng tên để biên dịch được).
+3. Người 2 và Người 3 làm song song trên nhánh riêng, chỉ sửa file thuộc phần mình.
+4. Ghép theo thứ tự: hạ tầng → Người 2 → Người 3; Người 1 chạy `--selftest` và kiểm thử end-to-end (đăng nhập → gọi món → thanh toán → in hóa đơn → thống kê → quản lý nhân viên).
+5. Mỗi người commit phần của mình và viết một mục trong báo cáo; Người 1 tổng hợp README.

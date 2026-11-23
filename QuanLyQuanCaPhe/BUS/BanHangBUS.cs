@@ -30,47 +30,47 @@ namespace QuanLyQuanCaPhe.BUS
 
         public static int? GetOpenInvoice(int maBan)
         {
-            return HoaDonDAL.GetOpenInvoice(maBan);
+            return BanHangDAL.GetOpenInvoice(maBan);
         }
 
         public static int GetOrCreateInvoice(int maBan, int maNV)
         {
-            return HoaDonDAL.GetOrCreateInvoice(maBan, maNV);
+            return BanHangDAL.GetOrCreateInvoice(maBan, maNV);
         }
 
         public static void AddItem(int maHD, int maMon)
         {
-            HoaDonDAL.AddItem(maHD, maMon);
+            BanHangDAL.AddItem(maHD, maMon);
         }
 
         public static bool ChangeQuantity(int maCT, int delta)
         {
-            return HoaDonDAL.ChangeQuantity(maCT, delta);
+            return BanHangDAL.ChangeQuantity(maCT, delta);
         }
 
         public static bool RemoveItem(int maCT)
         {
-            return HoaDonDAL.RemoveItem(maCT);
+            return BanHangDAL.RemoveItem(maCT);
         }
 
         public static List<ChiTietHoaDonDTO> GetDetails(int maHD)
         {
-            return HoaDonDAL.GetDetails(maHD);
+            return BanHangDAL.GetDetails(maHD);
         }
 
         public static decimal GetTotal(int maHD)
         {
-            return HoaDonDAL.GetTotal(maHD);
+            return BanHangDAL.GetTotal(maHD);
         }
 
         public static void PayInvoice(int maHD, decimal giamGia, string phuongThuc, string ghiChu)
         {
-            HoaDonDAL.PayInvoice(maHD, giamGia, phuongThuc, ghiChu);
+            BanHangDAL.PayInvoice(maHD, giamGia, phuongThuc, ghiChu);
         }
 
         public static void DeleteOpenInvoice(int maHD)
         {
-            HoaDonDAL.DeleteOpenInvoice(maHD);
+            BanHangDAL.DeleteOpenInvoice(maHD);
         }
     }
 }
