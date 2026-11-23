@@ -8,7 +8,7 @@ using QuanLyQuanCaPhe.GUI.Controls;
 
 namespace QuanLyQuanCaPhe.GUI.Forms
 {
-    public class ucThongKe : UserControl
+    public class frmThongKe : Form
     {
         private DateTimePicker _dtTuNgay;
         private DateTimePicker _dtDenNgay;
@@ -23,7 +23,7 @@ namespace QuanLyQuanCaPhe.GUI.Forms
         private Label _lblKyBaoCao;
         private bool _dangKhoiTao;
 
-        public ucThongKe()
+        public frmThongKe()
         {
             BackColor = Theme.Background;
             Font = Theme.Font(10f);

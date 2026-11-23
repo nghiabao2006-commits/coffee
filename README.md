@@ -41,7 +41,7 @@ GUI (Forms)  ──►  BUS (Business Logic)  ──►  DAL (Data Access)  ─�
    └──── DTO ◄──────────┘        DTO ◄───────────┘
 ```
 
-- **GUI (Presentation Layer):** các Form/UserControl, tiếp nhận thao tác người dùng, hiển thị dữ liệu. GUI chỉ gọi BUS, không viết câu SQL.
+- **GUI (Presentation Layer):** các lớp kế thừa `Form`, tiếp nhận thao tác người dùng, hiển thị dữ liệu. GUI chỉ gọi BUS, không viết câu SQL.
 - **BUS (Business Logic Layer):** kiểm tra dữ liệu đầu vào, xử lý nghiệp vụ (băm mật khẩu, kiểm tra quản lý cuối cùng, chuyển đổi trạng thái...), gọi DAL.
 - **DAL (Data Access Layer):** thực hiện truy vấn ADO.NET, trả về `DataTable` hoặc danh sách đối tượng.
 - **DTO (Data Transfer Object):** các lớp dữ liệu đơn giản dùng để chuyển dữ liệu giữa các tầng (`TaiKhoanDTO`, `NhanVienDTO`, `HoaDonDTO`, `ChiTietHoaDonDTO`, `CaiDatDTO`).
@@ -89,9 +89,9 @@ GUI (Forms)  ──►  BUS (Business Logic)  ──►  DAL (Data Access)  ─�
 │   │   ├── Session.cs             # Phiên đăng nhập hiện tại
 │   │   ├── Controls/              # UiGrid, BarChart, BufferedPanel
 │   │   ├── Printing/              # InvoicePrinter (xem trước và in hóa đơn)
-│   │   └── Forms/                 # frmDangNhap, frmMain, ucTrangChu, ucBanHang,
-│   │                              # ucQuanLyBan, ucThucDon, ucNhanVien,
-│   │                              # ucHoaDon, ucThongKe, frmKetNoiCSDL
+│   │   └── Forms/                 # frmDangNhap, frmMain, frmTrangChu, frmBanHang,
+│   │                              # frmQuanLyBan, frmThucDon, frmNhanVien,
+│   │                              # frmHoaDon, frmThongKe, frmKetNoiCSDL
 │   ├── App.config                 # Chuỗi kết nối SQL Server
 │   ├── Program.cs                 # Điểm khởi chạy, chế độ --selftest
 │   ├── Properties/AssemblyInfo.cs
@@ -304,15 +304,15 @@ Bài tập đã xây dựng hoàn chỉnh một phần mềm quản lý quán c�
 
 ## 13. Phụ lục: Phân công công việc nhóm 3 người
 
-Mỗi thành viên đảm nhận tối thiểu 3 màn hình chức năng (UserControl được tính là một màn hình WinForms). Cách chia dưới đây cắt theo cụm nghiệp vụ để mỗi người sở hữu trọn gói GUI → BUS → DAL của phần mình.
+Mỗi thành viên đảm nhận tối thiểu 3 màn hình WinForms, mỗi màn hình là một lớp kế thừa `System.Windows.Forms.Form`. Các màn hình chức năng được nhúng vào `frmMain` bằng `TopLevel = false`, `FormBorderStyle = None`, `Dock = Fill` và `Show()` nên vẫn chạy như một trang nội dung. Cách chia dưới đây cắt theo cụm nghiệp vụ để mỗi người sở hữu trọn gói GUI → BUS → DAL của phần mình.
 
 ### 13.1. Bảng phân công
 
 | Thành viên | Màn hình phụ trách | BUS/DAL phụ trách |
 |---|---|---|
 | **Người 1** – Nền tảng, đăng nhập, khung chương trình | `frmDangNhap`, `frmKetNoiCSDL`, `frmMain` | `TaiKhoanBUS`, `MatKhau`, `TaiKhoanDAL`; chủ trì `DatabaseHelper`, `DatabaseInitializer`, `ScriptDB.sql`, `Program.cs`, `App.config`, `.sln`, `.csproj` |
-| **Người 2** – Bán hàng, bàn, thực đơn | `ucBanHang`, `ucQuanLyBan`, `ucThucDon` | `BanHangBUS`, `BanBUS`, `KhuVucBUS`, `ThucDonBUS`, `BanHangDAL`, `BanDAL`, `KhuVucDAL`, `ThucDonDAL` |
-| **Người 3** – Trang chủ, nhân viên, hóa đơn, thống kê, in | `ucTrangChu`, `ucNhanVien`, `ucHoaDon`, `ucThongKe`, `InvoicePrinter` | `NhanVienBUS`, `HoaDonBUS`, `ThongKeBUS`, `CaiDatBUS`, `NhanVienDAL`, `HoaDonDAL`, `ThongKeDAL`, `CaiDatDAL` |
+| **Người 2** – Bán hàng, bàn, thực đơn | `frmBanHang`, `frmQuanLyBan`, `frmThucDon` | `BanHangBUS`, `BanBUS`, `KhuVucBUS`, `ThucDonBUS`, `BanHangDAL`, `BanDAL`, `KhuVucDAL`, `ThucDonDAL` |
+| **Người 3** – Trang chủ, nhân viên, hóa đơn, thống kê, in | `frmTrangChu`, `frmNhanVien`, `frmHoaDon`, `frmThongKe`, `InvoicePrinter` | `NhanVienBUS`, `HoaDonBUS`, `ThongKeBUS`, `CaiDatBUS`, `NhanVienDAL`, `HoaDonDAL`, `ThongKeDAL`, `CaiDatDAL` |
 
 ### 13.2. File dùng chung để gắn kết 3 phần
 

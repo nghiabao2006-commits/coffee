@@ -9,7 +9,7 @@ using QuanLyQuanCaPhe.GUI.Controls;
 
 namespace QuanLyQuanCaPhe.GUI.Forms
 {
-    public class ucNhanVien : UserControl
+    public class frmNhanVien : Form
     {
         private UiGrid _grid;
         private TextBox _txtHoTen;
@@ -25,7 +25,7 @@ namespace QuanLyQuanCaPhe.GUI.Forms
         private Button _btnXoa;
         private int _maNVDangSua;
 
-        public ucNhanVien()
+        public frmNhanVien()
         {
             BackColor = Theme.Background;
             Font = Theme.Font(10f);

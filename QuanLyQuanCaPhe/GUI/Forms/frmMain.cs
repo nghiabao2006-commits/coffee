@@ -14,7 +14,7 @@ namespace QuanLyQuanCaPhe.GUI.Forms
         private readonly Label _lblDate;
         private readonly Dictionary<string, Button> _navButtons = new Dictionary<string, Button>();
         private readonly System.Windows.Forms.Timer _clock;
-        private UserControl _currentPage;
+        private Form _currentPage;
 
         public bool DangXuat { get; private set; }
 
@@ -340,37 +340,40 @@ namespace QuanLyQuanCaPhe.GUI.Forms
                     _currentPage = null;
                 }
 
-                UserControl page;
+                Form page;
                 switch (key)
                 {
                     case "Bán hàng":
-                        page = new ucBanHang();
+                        page = new frmBanHang();
                         break;
                     case "Quản lý bàn":
-                        page = new ucQuanLyBan();
+                        page = new frmQuanLyBan();
                         break;
                     case "Thực đơn":
-                        page = new ucThucDon();
+                        page = new frmThucDon();
                         break;
                     case "Nhân viên":
-                        page = new ucNhanVien();
+                        page = new frmNhanVien();
                         break;
                     case "Hóa đơn":
-                        page = new ucHoaDon();
+                        page = new frmHoaDon();
                         break;
                     case "Thống kê":
-                        page = new ucThongKe();
+                        page = new frmThongKe();
                         break;
                     default:
-                        var home = new ucTrangChu();
+                        var home = new frmTrangChu();
                         home.NavigateRequested += ShowPage;
                         page = home;
                         key = "Trang chủ";
                         break;
                 }
 
+                page.TopLevel = false;
+                page.FormBorderStyle = FormBorderStyle.None;
                 page.Dock = DockStyle.Fill;
                 _content.Controls.Add(page);
+                page.Show();
                 _currentPage = page;
                 _lblPageTitle.Text = key;
 

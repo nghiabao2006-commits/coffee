@@ -10,7 +10,7 @@ using QuanLyQuanCaPhe.GUI.Printing;
 
 namespace QuanLyQuanCaPhe.GUI.Forms
 {
-    public class ucBanHang : UserControl
+    public class frmBanHang : Form
     {
         private ComboBox _cboKhuVuc;
         private FlowLayoutPanel _flowBan;
@@ -43,7 +43,7 @@ namespace QuanLyQuanCaPhe.GUI.Forms
         private int? _maHD;
         private int _maLoaiDangChon;
 
-        public ucBanHang()
+        public frmBanHang()
         {
             BackColor = Theme.Background;
             Font = Theme.Font(10f);

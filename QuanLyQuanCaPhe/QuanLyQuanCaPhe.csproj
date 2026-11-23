@@ -82,13 +82,13 @@
     <Compile Include="GUI\Forms\frmKetNoiCSDL.cs" />
     <Compile Include="GUI\Forms\frmDangNhap.cs" />
     <Compile Include="GUI\Forms\frmMain.cs" />
-    <Compile Include="GUI\Forms\ucTrangChu.cs" />
-    <Compile Include="GUI\Forms\ucBanHang.cs" />
-    <Compile Include="GUI\Forms\ucQuanLyBan.cs" />
-    <Compile Include="GUI\Forms\ucThucDon.cs" />
-    <Compile Include="GUI\Forms\ucNhanVien.cs" />
-    <Compile Include="GUI\Forms\ucHoaDon.cs" />
-    <Compile Include="GUI\Forms\ucThongKe.cs" />
+    <Compile Include="GUI\Forms\frmTrangChu.cs" />
+    <Compile Include="GUI\Forms\frmBanHang.cs" />
+    <Compile Include="GUI\Forms\frmQuanLyBan.cs" />
+    <Compile Include="GUI\Forms\frmThucDon.cs" />
+    <Compile Include="GUI\Forms\frmNhanVien.cs" />
+    <Compile Include="GUI\Forms\frmHoaDon.cs" />
+    <Compile Include="GUI\Forms\frmThongKe.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

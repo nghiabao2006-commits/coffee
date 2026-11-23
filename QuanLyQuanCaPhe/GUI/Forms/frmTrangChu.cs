@@ -8,7 +8,7 @@ using QuanLyQuanCaPhe.GUI.Controls;
 
 namespace QuanLyQuanCaPhe.GUI.Forms
 {
-    public class ucTrangChu : UserControl
+    public class frmTrangChu : Form
     {
         public event Action<string> NavigateRequested;
 
@@ -19,7 +19,7 @@ namespace QuanLyQuanCaPhe.GUI.Forms
         private UiGrid _gridHoaDon;
         private UiGrid _gridTopMon;
 
-        public ucTrangChu()
+        public frmTrangChu()
         {
             BackColor = Theme.Background;
             Font = Theme.Font(10f);

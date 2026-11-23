@@ -8,7 +8,7 @@ using QuanLyQuanCaPhe.GUI.Controls;
 
 namespace QuanLyQuanCaPhe.GUI.Forms
 {
-    public class ucQuanLyBan : UserControl
+    public class frmQuanLyBan : Form
     {
         private TabControl _tabs;
         private UiGrid _gridBan;
@@ -26,7 +26,7 @@ namespace QuanLyQuanCaPhe.GUI.Forms
         private int _maBanDangSua;
         private int _maKhuVucDangSua;
 
-        public ucQuanLyBan()
+        public frmQuanLyBan()
         {
             BackColor = Theme.Background;
             Font = Theme.Font(10f);

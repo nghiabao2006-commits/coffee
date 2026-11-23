@@ -8,7 +8,7 @@ using QuanLyQuanCaPhe.GUI.Controls;
 
 namespace QuanLyQuanCaPhe.GUI.Forms
 {
-    public class ucThucDon : UserControl
+    public class frmThucDon : Form
     {
         private TabControl _tabs;
         private UiGrid _gridMon;
@@ -28,7 +28,7 @@ namespace QuanLyQuanCaPhe.GUI.Forms
         private int _maMonDangSua;
         private int _maLoaiDangSua;
 
-        public ucThucDon()
+        public frmThucDon()
         {
             BackColor = Theme.Background;
             Font = Theme.Font(10f);

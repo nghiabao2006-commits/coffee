@@ -9,7 +9,7 @@ using QuanLyQuanCaPhe.GUI.Printing;
 
 namespace QuanLyQuanCaPhe.GUI.Forms
 {
-    public class ucHoaDon : UserControl
+    public class frmHoaDon : Form
     {
         private DateTimePicker _dtTuNgay;
         private DateTimePicker _dtDenNgay;
@@ -28,7 +28,7 @@ namespace QuanLyQuanCaPhe.GUI.Forms
         private int _maHD;
         private string _trangThaiHD;
 
-        public ucHoaDon()
+        public frmHoaDon()
         {
             BackColor = Theme.Background;
             Font = Theme.Font(10f);
