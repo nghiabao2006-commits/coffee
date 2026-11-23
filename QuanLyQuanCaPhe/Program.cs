@@ -4,8 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using QuanLyQuanCaPhe.Data;
-using QuanLyQuanCaPhe.Helpers;
+using QuanLyQuanCaPhe.BUS;
+using QuanLyQuanCaPhe.DAL;
+using QuanLyQuanCaPhe.GUI;
 
 namespace QuanLyQuanCaPhe
 {
@@ -45,7 +46,7 @@ namespace QuanLyQuanCaPhe
 
             while (true)
             {
-                using (var login = new Forms.frmDangNhap())
+                using (var login = new GUI.Forms.frmDangNhap())
                 {
                     if (login.ShowDialog() != DialogResult.OK)
                     {
@@ -53,7 +54,7 @@ namespace QuanLyQuanCaPhe
                     }
                 }
 
-                using (var main = new Forms.frmMain())
+                using (var main = new GUI.Forms.frmMain())
                 {
                     Application.Run(main);
                     if (!main.DangXuat)
@@ -86,11 +87,7 @@ namespace QuanLyQuanCaPhe
                 lines.Add("HoaDon: " + Count("SELECT COUNT(*) FROM dbo.HoaDon"));
                 lines.Add("ChiTietHoaDon: " + Count("SELECT COUNT(*) FROM dbo.ChiTietHoaDon"));
 
-                int login = Convert.ToInt32(DatabaseHelper.Scalar(
-                    "SELECT COUNT(*) FROM dbo.NhanVien WHERE TenDangNhap = @TenDangNhap " +
-                    "AND MatKhau = @MatKhau AND TrangThai = N'Đang làm'",
-                    DatabaseHelper.P("@TenDangNhap", "admin"),
-                    DatabaseHelper.P("@MatKhau", Utils.HashPassword("123456"))));
+                int login = TaiKhoanBUS.DangNhap("admin", "123456") != null ? 1 : 0;
                 lines.Add("Đăng nhập admin/123456: " + (login == 1 ? "OK" : "THẤT BẠI"));
 
                 int maBan = Convert.ToInt32(DatabaseHelper.Scalar(
@@ -100,12 +97,12 @@ namespace QuanLyQuanCaPhe
                 int maNV = Convert.ToInt32(DatabaseHelper.Scalar(
                     "SELECT TOP 1 MaNV FROM dbo.NhanVien WHERE MaVaiTro = 1 ORDER BY MaNV"));
 
-                int maHD = OrderService.GetOrCreateInvoice(maBan, maNV);
-                OrderService.AddItem(maHD, maMon);
-                OrderService.AddItem(maHD, maMon);
-                decimal total = OrderService.GetTotal(maHD);
+                int maHD = BanHangBUS.GetOrCreateInvoice(maBan, maNV);
+                BanHangBUS.AddItem(maHD, maMon);
+                BanHangBUS.AddItem(maHD, maMon);
+                decimal total = BanHangBUS.GetTotal(maHD);
                 lines.Add("Tạo hóa đơn thử: " + Utils.InvoiceCode(maHD) + ", tổng tiền: " + Utils.Money(total));
-                OrderService.PayInvoice(maHD, 0m, "Tiền mặt", "Kiểm tra tự động");
+                BanHangBUS.PayInvoice(maHD, 0m, "Tiền mặt", "Kiểm tra tự động");
 
                 string status = Convert.ToString(DatabaseHelper.Scalar(
                     "SELECT TrangThai FROM dbo.HoaDon WHERE MaHD = @MaHD",

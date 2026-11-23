@@ -46,34 +46,54 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Theme.cs" />
-    <Compile Include="Helpers\Utils.cs" />
-    <Compile Include="Helpers\Session.cs" />
-    <Compile Include="Controls\UiGrid.cs" />
-    <Compile Include="Controls\BarChart.cs" />
-    <Compile Include="Controls\BufferedPanel.cs" />
-    <Compile Include="Data\DatabaseHelper.cs" />
-    <Compile Include="Data\DatabaseInitializer.cs" />
-    <Compile Include="Data\OrderService.cs" />
-    <Compile Include="Printing\InvoicePrinter.cs" />
-    <Compile Include="Forms\frmKetNoiCSDL.cs" />
-    <Compile Include="Forms\frmDangNhap.cs" />
-    <Compile Include="Forms\frmMain.cs" />
-    <Compile Include="Forms\ucTrangChu.cs" />
-    <Compile Include="Forms\ucBanHang.cs" />
-    <Compile Include="Forms\ucQuanLyBan.cs" />
-    <Compile Include="Forms\ucThucDon.cs" />
-    <Compile Include="Forms\ucNhanVien.cs" />
-    <Compile Include="Forms\ucHoaDon.cs" />
-    <Compile Include="Forms\ucThongKe.cs" />
+    <Compile Include="DTO\CaiDatDTO.cs" />
+    <Compile Include="DTO\ChiTietHoaDonDTO.cs" />
+    <Compile Include="DTO\HoaDonDTO.cs" />
+    <Compile Include="DTO\NhanVienDTO.cs" />
+    <Compile Include="DTO\TaiKhoanDTO.cs" />
+    <Compile Include="DAL\BanDAL.cs" />
+    <Compile Include="DAL\CaiDatDAL.cs" />
+    <Compile Include="DAL\DatabaseHelper.cs" />
+    <Compile Include="DAL\DatabaseInitializer.cs" />
+    <Compile Include="DAL\HoaDonDAL.cs" />
+    <Compile Include="DAL\KhuVucDAL.cs" />
+    <Compile Include="DAL\NhanVienDAL.cs" />
+    <Compile Include="DAL\TaiKhoanDAL.cs" />
+    <Compile Include="DAL\ThongKeDAL.cs" />
+    <Compile Include="DAL\ThucDonDAL.cs" />
+    <Compile Include="BUS\BanBUS.cs" />
+    <Compile Include="BUS\BanHangBUS.cs" />
+    <Compile Include="BUS\CaiDatBUS.cs" />
+    <Compile Include="BUS\HoaDonBUS.cs" />
+    <Compile Include="BUS\KhuVucBUS.cs" />
+    <Compile Include="BUS\MatKhau.cs" />
+    <Compile Include="BUS\NhanVienBUS.cs" />
+    <Compile Include="BUS\TaiKhoanBUS.cs" />
+    <Compile Include="BUS\ThongKeBUS.cs" />
+    <Compile Include="BUS\ThucDonBUS.cs" />
+    <Compile Include="GUI\Session.cs" />
+    <Compile Include="GUI\Theme.cs" />
+    <Compile Include="GUI\Utils.cs" />
+    <Compile Include="GUI\Controls\BarChart.cs" />
+    <Compile Include="GUI\Controls\BufferedPanel.cs" />
+    <Compile Include="GUI\Controls\UiGrid.cs" />
+    <Compile Include="GUI\Printing\InvoicePrinter.cs" />
+    <Compile Include="GUI\Forms\frmKetNoiCSDL.cs" />
+    <Compile Include="GUI\Forms\frmDangNhap.cs" />
+    <Compile Include="GUI\Forms\frmMain.cs" />
+    <Compile Include="GUI\Forms\ucTrangChu.cs" />
+    <Compile Include="GUI\Forms\ucBanHang.cs" />
+    <Compile Include="GUI\Forms\ucQuanLyBan.cs" />
+    <Compile Include="GUI\Forms\ucThucDon.cs" />
+    <Compile Include="GUI\Forms\ucNhanVien.cs" />
+    <Compile Include="GUI\Forms\ucHoaDon.cs" />
+    <Compile Include="GUI\Forms\ucThongKe.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EmbeddedResource Include="Data\Schema.sql">
-      <LogicalName>QuanLyQuanCaPhe.Data.Schema.sql</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\Seed.sql">
-      <LogicalName>QuanLyQuanCaPhe.Data.Seed.sql</LogicalName>
+    <EmbeddedResource Include="..\Database\ScriptDB.sql">
+      <Link>Database\ScriptDB.sql</Link>
+      <LogicalName>QuanLyQuanCaPhe.Database.ScriptDB.sql</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
